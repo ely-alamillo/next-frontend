@@ -8,12 +8,14 @@ type InputProps = React.DetailedHTMLProps<
 
 export const InputField = ({
   field,
-  form: _,
+  form: { errors, touched },
   ...props
 }: FieldProps & InputProps) => {
+  const errorMsg = touched[field.name] && errors[field.name];
   return (
     <div>
       <input {...field} {...props} />
+      {errorMsg && <div style={{ color: "red" }}>{errorMsg}</div>}
     </div>
   );
 };
