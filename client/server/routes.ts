@@ -1,0 +1,10 @@
+import Routes, * as nextRoutes from 'next-routes';
+
+// @ts-ignore
+export const routes = nextRoutes() as Routes;
+export const Router = routes.Router;
+export const Link = routes.Link;
+
+// these comes from the pages folder
+
+routes.add('confirm', '/user/confirm/:token');
