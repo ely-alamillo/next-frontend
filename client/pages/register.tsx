@@ -3,6 +3,7 @@ import React from "react";
 import { Field, Formik } from "formik";
 import { InputField } from "../components/Fields/InputField";
 import { RegisterComponent } from "../generated/apolloComponents";
+import Router from "next/router";
 
 export default () => {
   return (
@@ -20,6 +21,7 @@ export default () => {
                   }
                 });
                 console.log(response);
+                Router.push('/check-email')
               } catch (e) {
                 const errors: { [key: string]: string } = {};
                 e.graphQLErrors[0].validationErrors.forEach((x: any) => {
