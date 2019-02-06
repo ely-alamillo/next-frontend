@@ -2,11 +2,13 @@ import {
   ApolloClient,
   InMemoryCache,
   NormalizedCacheObject
-} from "apollo-boost";
-import { createHttpLink } from "apollo-link-http";
-import { setContext } from "apollo-link-context";
-import fetch from "isomorphic-unfetch";
-import { isBrowser } from "./isBrowser";
+} from 'apollo-boost';
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import fetch from 'isomorphic-unfetch';
+import { isBrowser } from './isBrowser';
+import { onError } from 'apollo-link-error';
+import Router from 'next/router';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
@@ -22,17 +24,30 @@ interface Options {
 
 function create(initialState: any, { getToken }: Options) {
   const httpLink = createHttpLink({
-    uri: "http://localhost:4000/graphql",
-    credentials: "include"
+    uri: 'http://localhost:4000/graphql',
+    credentials: 'include'
   });
 
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.map(({ message, locations, path }) => {
+        console.log({ message, locations, path });
+        if (isBrowser && message.includes('Access denied')) {
+          Router.replace('/login');
+        }
+      });
+    }
+    if (networkError) {
+      console.log({ networkError });
+    }
+  });
   // will  not need this ?
   const authLink = setContext((_, { headers }) => {
     const token = getToken();
     return {
       headers: {
         ...headers,
-        cookie: token ? `eid=${token}` : ""
+        cookie: token ? `eid=${token}` : ''
       }
     };
   });
@@ -41,7 +56,7 @@ function create(initialState: any, { getToken }: Options) {
   return new ApolloClient({
     connectToDevTools: isBrowser,
     ssrMode: !isBrowser, // Disables forceFetch on the server (so queries are only run once)
-    link: authLink.concat(httpLink),
+    link: errorLink.concat(authLink.concat(httpLink)),
     cache: new InMemoryCache().restore(initialState || {})
   });
 }
