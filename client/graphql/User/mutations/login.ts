@@ -1,13 +1,13 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const loginMutation = gql`
-mutation Login($email: String!, $password: String!){
+  mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-        id
-        firstName
-        lastName
-        email
-        name
+      id
+      firstName
+      lastName
+      email
+      name
     }
-}
-`
+  }
+`;
