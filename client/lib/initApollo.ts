@@ -28,6 +28,7 @@ function create(initialState: any, { getToken }: Options) {
     credentials: 'include'
   });
 
+  // helps us hande errors on the FE
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.map(({ message, locations, path }) => {
