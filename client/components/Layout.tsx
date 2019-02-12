@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { MeComponent } from '../generated/apolloComponents';
 
 type Props = {
   title?: string;
@@ -20,22 +21,36 @@ const Layout: React.FunctionComponent<Props> = ({
       <nav>
         <Link href="/">
           <a>Home</a>
-        </Link>
-
+        </Link>{' '}
+        {' | '}
         <Link href="/hello">
           <a>Hello</a>
-        </Link>
-
+        </Link>{' '}
+        {' | '}
         <Link href="/register">
           <a>Register</a>
-        </Link>
-
+        </Link>{' '}
+        {' | '}
         <Link href="/login">
           <a>Login</a>
-        </Link>
+        </Link>{' '}
+        {' | '}
         <Link href="/forgot-password">
           <a>Forgot Password</a>
-        </Link>
+        </Link>{' '}
+        {' | '}
+        <MeComponent>
+          {({ data, loading }) => {
+            if (!data || loading || !data.me) {
+              return null;
+            }
+            return (
+              <Link href="/logout">
+                <a>Logout</a>
+              </Link>
+            );
+          }}
+        </MeComponent>
       </nav>
     </header>
     {children}
