@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "ts-node-dev --respawn --no-notify --project tsconfig.server.json server/server.ts",
+    "dev:w": "nodemon --exec ts-node --project tsconfig.server.json server/server.ts",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
@@ -35,6 +36,7 @@
     "graphql-codegen-typescript-common": "^0.16.0",
     "graphql-codegen-typescript-react-apollo": "^0.16.0",
     "graphql-codegen-typescript-server": "^0.16.0",
+    "nodemon": "^1.18.10",
     "ts-node": "^8.0.2",
     "ts-node-dev": "^1.0.0-pre.32",
     "tslint": "^5.12.1",
