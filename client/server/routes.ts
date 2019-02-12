@@ -8,3 +8,4 @@ export const Link = routes.Link;
 // these comes from the pages folder
 
 routes.add('confirm', '/user/confirm/:token');
+routes.add('change-password', '/user/change-password/:token');
