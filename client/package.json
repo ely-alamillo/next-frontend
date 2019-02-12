@@ -2,7 +2,7 @@
   "name": "with-typescript",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node-dev --respawn --project tsconfig.server.json server/server.ts",
+    "dev": "ts-node-dev --respawn --no-notify --project tsconfig.server.json server/server.ts",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
