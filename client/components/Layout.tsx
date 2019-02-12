@@ -20,20 +20,22 @@ const Layout: React.FunctionComponent<Props> = ({
       <nav>
         <Link href="/">
           <a>Home</a>
-        </Link>{' '}
-        |{' '}
+        </Link>
+
         <Link href="/hello">
           <a>Hello</a>
-        </Link>{' '}
-        |{' '}
+        </Link>
+
         <Link href="/register">
           <a>Register</a>
-        </Link>{' '}
-        |{' '}
+        </Link>
+
         <Link href="/login">
           <a>Login</a>
-        </Link>{' '}
-        |{' '}
+        </Link>
+        <Link href="/forgot-password">
+          <a>Forgot Password</a>
+        </Link>
       </nav>
     </header>
     {children}
